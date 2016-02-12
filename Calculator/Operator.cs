@@ -8,8 +8,8 @@ namespace Calculator
 {
     enum Operator
     {
-        Plus,
-        Minus,
+        Add,
+        Substract,
         Divide,
         Multiply
     }

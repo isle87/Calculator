@@ -41,6 +41,7 @@ namespace Calculator
 
             for (int i = 0; i < Elements.Count; i++)
             {
+                Console.WriteLine(Elements[i].ToString());
                 if (Elements[i] is double)
                     continue;
                 if (((Operator)Elements[i]) == Operator.Divide && Elements[i - 1] is double && Elements[i + 1] is double)
@@ -69,9 +70,9 @@ namespace Calculator
                     continue;
                 if (Elements[i + 1] is double)
                 {
-                    if((Operator)Elements[i] == Operator.Plus)
+                    if((Operator)Elements[i] == Operator.Add)
                         result += (double)Elements[i + 1];
-                    if ((Operator)Elements[i] == Operator.Minus)
+                    if ((Operator)Elements[i] == Operator.Substract)
                         result -= (double)Elements[i + 1];
                 }
             }
@@ -86,10 +87,8 @@ namespace Calculator
         /// </summary>
         public void Clear()
         {
-            for (int i = 0; i < Elements.Count; i++)
-            {
-                Elements.RemoveAt(i);
-            }
+            Elements = null;
+            Elements = new List<object>();
         }
 
     }
