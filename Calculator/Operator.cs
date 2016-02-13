@@ -11,6 +11,8 @@ namespace Calculator
         Add,
         Substract,
         Divide,
-        Multiply
+        Multiply,
+        BracketOpen,
+        BracketClose,
     }
 }

@@ -20,39 +20,40 @@ namespace Calculator
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string number = string.Empty;
         private Calc calc = new Calc();
+        private string number = string.Empty;
         private bool resultShowed = false;
-
+        //TODO: HostoryDisplay Scollen
         public MainWindow()
         {
             InitializeComponent();
-            Display.Text = "";
+            Display.Content = "";
+            calc.CalculateEvent += Calc_CalculateEvent;
+
+            //HistoryDisplay.Text = "Hallo\n";
+            //for(int i= 0; i< 20; i++)
+            //    HistoryDisplay.Text += "Schwachkopf!\n";
+        }
+
+        private void Calc_CalculateEvent(object sender, CalculatorEventArgs e)
+        {
+            HistoryDisplay.Text += e.Result + "\n";
         }
 
         private void addNumber(string Number)
         {
             if (resultShowed)
             {
-                Display.Text = string.Empty;
+                Display.Content = string.Empty;
                 resultShowed = false;
             }
-            Display.Text += Number;
+            Display.Content += Number;
             number += Number;
         }
 
         private void BtnNumber_Click(object sender, RoutedEventArgs e)
         {
             addNumber((string)((Button)e.Source).Content);
-        }
-
-        private void saveNumber()
-        {
-            if (number != string.Empty)
-            {
-                calc.AddNumber(Convert.ToDouble(number));
-                number = string.Empty;
-            }
         }
 
         private void BtnOperant_Click(object sender, RoutedEventArgs e)
@@ -62,31 +63,48 @@ namespace Calculator
             {
                 case "+":
                     calc.AddOperator(Operator.Add);
-                    Display.Text += " + ";
+                    Display.Content += " + ";
                     break;
                 case "-":
                     calc.AddOperator(Operator.Substract);
-                    Display.Text += " - ";
+                    Display.Content += " - ";
                     break;
                 case "*":
                     calc.AddOperator(Operator.Multiply);
-                    Display.Text += " * ";
+                    Display.Content += " * ";
                     break;
                 case "/":
                     calc.AddOperator(Operator.Divide);
-                    Display.Text += " / ";
+                    Display.Content += " / ";
                     break;
                 case "C":
                     calc.Clear();
-                    Display.Text = string.Empty;
+                    Display.Content = string.Empty;
                     break;
                 case "=":
-                    Display.Text = string.Empty;
-                    Display.Text = calc.Calculate(true).ToString();
+                    Display.Content = string.Empty;
+                    Display.Content = calc.GetResult(true).ToString();
                     resultShowed = true;
+                    break;
+                case "(":
+                    calc.AddOperator(Operator.BracketOpen);
+                    Display.Content += "(";
+                    break;
+                case ")":
+                    calc.AddOperator(Operator.BracketClose);
+                    Display.Content += ")";
                     break;
                 default:
                     break;
+            }
+        }
+
+        private void saveNumber()
+        {
+            if (number != string.Empty)
+            {
+                calc.AddNumber(Convert.ToDouble(number));
+                number = string.Empty;
             }
         }
 
@@ -157,27 +175,27 @@ namespace Calculator
                 case Key.Divide:
                     saveNumber();
                     calc.AddOperator(Operator.Divide);
-                    Display.Text += " / ";
+                    Display.Content += " / ";
                     break;
                 case Key.Multiply:
                     saveNumber();
                     calc.AddOperator(Operator.Multiply);
-                    Display.Text += " * ";
+                    Display.Content += " * ";
                     break;
                 case Key.Add:
                     saveNumber();
                     calc.AddOperator(Operator.Add);
-                    Display.Text += " + ";
+                    Display.Content += " + ";
                     break;
                 case Key.Subtract:
                     saveNumber();
                     calc.AddOperator(Operator.Substract);
-                    Display.Text += " - ";
+                    Display.Content += " - ";
                     break;
                 case Key.Enter:
                     saveNumber();
-                    Display.Text = string.Empty;
-                    Display.Text = calc.Calculate().ToString();
+                    Display.Content = string.Empty;
+                    Display.Content = calc.GetResult().ToString();
                     resultShowed = true;
                     break;
                 default: break;
