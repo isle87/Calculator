@@ -14,5 +14,6 @@ namespace Calculator
         Multiply,
         BracketOpen,
         BracketClose,
+        Sinus,
     }
 }

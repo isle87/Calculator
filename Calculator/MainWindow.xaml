@@ -36,6 +36,7 @@
             </Grid.RowDefinitions>
             <Button Content="(" Grid.Row="0" Grid.Column="0" FontSize="24" Click="BtnOperant_Click"/>
             <Button Content=")" Grid.Row="0" Grid.Column="1" FontSize="24" Click="BtnOperant_Click"/>
+            <Button Content="sin" Grid.Row="0" Grid.Column="2" FontSize="24" Click="BtnOperant_Click"/>
             <Button Content="7" Grid.Row="2" Grid.Column="0" FontSize="24" Click="BtnNumber_Click"/>
             <Button Content="8" Grid.Row="2" Grid.Column="1" FontSize="24" Click="BtnNumber_Click"/>
             <Button Content="9" Grid.Row="2" Grid.Column="2" FontSize="24" Click="BtnNumber_Click"/>
@@ -45,14 +46,15 @@
             <Button Content="1" Grid.Row="4" Grid.Column="0" FontSize="24" Click="BtnNumber_Click"/>
             <Button Content="2" Grid.Row="4" Grid.Column="1" FontSize="24" Click="BtnNumber_Click"/>
             <Button Content="3" Grid.Row="4" Grid.Column="2" FontSize="24" Click="BtnNumber_Click"/>
-            <Button Content="," Grid.Row="5" Grid.Column="2" FontSize="24" Click="BtnNumber_Click"/>
-            <Button Content="=" Grid.Row="4" Grid.Column="3" Grid.RowSpan="2" FontSize="24" Click="BtnOperant_Click"/>
-            <Button Content="+" Grid.Row="2" Grid.Column="3" Grid.RowSpan="2" FontSize="24" Click="BtnOperant_Click"/>
-            <Button Content="-" Grid.Row="1" Grid.Column="3" FontSize="24" Click="BtnOperant_Click"/>
-            <Button Content="*" Grid.Row="1" Grid.Column="2" FontSize="24" Click="BtnOperant_Click"/>
-            <Button Content="/" Grid.Row="1" Grid.Column="1" FontSize="24" Click="BtnOperant_Click"/>
-            <Button Content="C" Grid.Row="1" Grid.Column="0" FontSize="24" Click="BtnOperant_Click"/>
-            <Button Content="0" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" FontSize="24" Click="BtnNumber_Click"/>
+            <Button Content="," Grid.Row="5" Grid.Column="1" FontSize="24" Click="BtnNumber_Click"/>
+            <Button Content="=" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" FontSize="24" Click="BtnOperant_Click"/>
+            <Button Content="+" Grid.Row="3" Grid.Column="3" Grid.RowSpan="2" FontSize="24" Click="BtnOperant_Click"/>
+            <Button Content="-" Grid.Row="2" Grid.Column="3" FontSize="24" Click="BtnOperant_Click"/>
+            <Button Content="*" Grid.Row="1" Grid.Column="3" FontSize="24" Click="BtnOperant_Click"/>
+            <Button Content="/" Grid.Row="1" Grid.Column="2" FontSize="24" Click="BtnOperant_Click"/>
+            <Button Content="CE" Grid.Row="1" Grid.Column="0" FontSize="24" Click="BtnOperant_Click"/>
+            <Button Content="C" Grid.Row="1" Grid.Column="1" FontSize="24" Click="BtnOperant_Click"/>
+            <Button Content="0" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="1" FontSize="24" Click="BtnNumber_Click"/>
         </Grid>
     </Grid>
 </Window>

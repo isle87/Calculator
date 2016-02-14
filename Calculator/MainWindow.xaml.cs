@@ -58,7 +58,8 @@ namespace Calculator
 
         private void BtnOperant_Click(object sender, RoutedEventArgs e)
         {
-            saveNumber();
+            if ((string)((Button)e.Source).Content != "C")
+                saveNumber();
             switch ((string)((Button)e.Source).Content)
             {
                 case "+":
@@ -77,9 +78,12 @@ namespace Calculator
                     calc.AddOperator(Operator.Divide);
                     Display.Content += " / ";
                     break;
-                case "C":
+                case "CE":
                     calc.Clear();
                     Display.Content = string.Empty;
+                    break;
+                case "C":
+                    Clear();
                     break;
                 case "=":
                     Display.Content = string.Empty;
@@ -93,6 +97,10 @@ namespace Calculator
                 case ")":
                     calc.AddOperator(Operator.BracketClose);
                     Display.Content += ")";
+                    break;
+                case "sin":
+                    calc.AddOperator(Operator.Sinus);
+                    Display.Content += " sin";
                     break;
                 default:
                     break;
@@ -200,6 +208,17 @@ namespace Calculator
                     break;
                 default: break;
             }
+        }
+
+        private void Clear()
+        {
+            if (number != string.Empty)
+            {
+                string ho = ((string)Display.Content).Remove(((string)Display.Content).Length - number.Length, number.Length);
+                Display.Content = ho;
+                number = string.Empty;
+            }
+
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Calculator
 {
     public delegate void CalculateHandler(object sender, CalculatorEventArgs e);
-    class Calc
+    internal class Calc
     {
         private List<object> Elements;
 
@@ -18,6 +18,7 @@ namespace Calculator
 
         public event CalculateHandler CalculateEvent;
 
+        #region Public Methods
         /// <summary>
         /// Fügt dem Rechner eine Zahl hinzu
         /// </summary>
@@ -32,17 +33,16 @@ namespace Calculator
 
         public void AddOperator(Operator Operator)
         {
-            if (Elements.Count != 0)
                 Elements.Add(Operator);
         }
 
-        private double calculate(List<object> List)
+        /// <summary>
+        /// Löscht die aktuelle Rechnung
+        /// </summary>
+        public void Clear()
         {
-            divide(List);
-            multiply(List);
-            double result = (double)List[0];
-            result = substactAdd(List, result);
-            return result;
+            Elements = null;
+            Elements = new List<object>();
         }
 
         public double GetResult(bool clear = true)
@@ -59,14 +59,7 @@ namespace Calculator
             return result;
         }
 
-        /// <summary>
-        /// Löscht die aktuelle Rechnung
-        /// </summary>
-        public void Clear()
-        {
-            Elements = null;
-            Elements = new List<object>();
-        }
+        #endregion
 
         private double bracket(List<object> List)
         {
@@ -74,13 +67,11 @@ namespace Calculator
             bool isAnotherBracket = false;
             double result;
             int countBracket = 0;
-            int startIndex, endIndex = 0;
             List<object> HoList = new List<object>();
             List<object> ResultList = new List<object>();
 
             for (int i = 0; i < List.Count; i++)
             {
-             
                 if (List[i] is Operator && ((Operator)List[i] == Operator.BracketOpen || (Operator)List[i] == Operator.BracketClose))
                 {
                     if (Operator.BracketOpen == ((Operator)List[i]))
@@ -92,11 +83,7 @@ namespace Calculator
                             HoList.Add(List[i]);
                         }
                         else
-                        {
                             isInBracket = true;
-                            startIndex = i;
-                        }
-                            
                     }
                     else if (Operator.BracketClose == ((Operator)List[i]) && countBracket > 0)
                     {
@@ -105,27 +92,45 @@ namespace Calculator
                     }
                     else
                     {
-                        endIndex = i;
                         if (isAnotherBracket)
                             result = bracket(HoList);
                         else
                             result = calculate(HoList);
                         isInBracket = false;
-                        ResultList.Add(result);                        
+                        ResultList.Add(result);
                     }
                 }
-                else if(isInBracket)
-                {
+                else if (isInBracket)
                     HoList.Add(List[i]);
-                }
                 else
-                {
                     ResultList.Add(List[i]);
-                }
-
             }
-
             return calculate(ResultList);
+        }
+
+        private double calculate(List<object> List)
+        {
+            sin(List);
+            divide(List);
+            multiply(List);
+            double result = (double)List[0];
+            result = substactAdd(List, result);
+            return result;
+        }
+
+        private void sin(List<object> List)
+        {
+            double result;
+            for (int i = 0; i < List.Count; i++)
+            {
+                if (List[i] is Operator && (Operator)List[i] == Operator.Sinus)
+                {
+                    result = Math.Sin(((double)List[i + 1])*Math.PI / 180);
+                    List[i] = result;
+                    List.RemoveAt(i + 1);
+                    i--;
+                }
+            }
         }
 
         private void divide(List<object> List)
@@ -165,7 +170,7 @@ namespace Calculator
             }
         }
 
-        private void OnCalculateEvent(string Equation)
+        private void OnCalculate(string Equation)
         {
             if (CalculateEvent != null)
             {
@@ -183,22 +188,25 @@ namespace Calculator
                     switch ((Operator)element)
                     {
                         case Operator.Add:
-                            result += " + ";
+                            result += "+";
                             break;
                         case Operator.Substract:
-                            result += " - ";
+                            result += "-";
                             break;
                         case Operator.Divide:
-                            result += " / ";
+                            result += "/";
                             break;
                         case Operator.Multiply:
-                            result += " * ";
+                            result += "*";
                             break;
                         case Operator.BracketOpen:
                             result += "(";
                             break;
                         case Operator.BracketClose:
                             result += ")";
+                            break;
+                        case Operator.Sinus:
+                            result += "sin";
                             break;
                         default:
                             break;
@@ -207,7 +215,7 @@ namespace Calculator
                 else
                     result += element.ToString();
             }
-            OnCalculateEvent(result);
+            OnCalculate(result);
         }
 
         private double substactAdd(List<object> List, double result)
